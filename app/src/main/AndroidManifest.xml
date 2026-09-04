@@ -5,6 +5,6 @@
   <queries><package android:name="moe.shizuku.privileged.api"/></queries>
   <application android:theme="@style/AppTheme" android:label="S23 Ultra Toolbox" android:icon="@mipmap/ic_launcher">
     <provider android:name="rikka.shizuku.ShizukuProvider" android:authorities="${applicationId}.shizuku" android:multiprocess="false" android:enabled="true" android:exported="true" android:permission="android.permission.INTERACT_ACROSS_USERS_FULL" />
-    <activity android:name=".MainActivity94" android:exported="true"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity>
+    <activity android:name=".MainActivity95" android:exported="true"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity>
   </application>
 </manifest>
