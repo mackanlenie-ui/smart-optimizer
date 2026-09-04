@@ -9,6 +9,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Fix Java Process type
+        run: sed -i 's/Process q=(Process)/java.lang.Process q=(java.lang.Process)/g' app/src/main/java/se/smartoptimizer/toolbox/MainActivity.java
       - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
