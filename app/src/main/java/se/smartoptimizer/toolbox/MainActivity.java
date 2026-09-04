@@ -171,7 +171,7 @@ public class MainActivity extends Activity {
     new Thread(()->{
       try{
         Method m=Shizuku.class.getDeclaredMethod("newProcess",String[].class,String[].class,String.class); m.setAccessible(true);
-        Process p=(Process)m.invoke(null,new Object[]{new String[]{"sh","-c",command},null,null}); int code=p.waitFor();
+        java.lang.Process p=(java.lang.Process)m.invoke(null,new Object[]{new String[]{"sh","-c",command},null,null}); int code=p.waitFor();
         runOnUiThread(()->{ if(code==0){ toast(success); log(success); } else toast("Åtgärden misslyckades (kod "+code+")"); });
       }catch(Throwable e){ runOnUiThread(()->toast("Shizuku-kommandot kunde inte köras")); }
     }).start();
