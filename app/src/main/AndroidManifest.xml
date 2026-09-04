@@ -2,7 +2,14 @@
   <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
   <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
   <queries><package android:name="moe.shizuku.privileged.api"/></queries>
-  <application android:theme="@style/AppTheme" android:label="Smart Optimizer 8.1" android:icon="@mipmap/ic_launcher">
+  <application android:theme="@style/AppTheme" android:label="S23 Ultra Toolbox" android:icon="@mipmap/ic_launcher">
+    <provider
+      android:name="rikka.shizuku.ShizukuProvider"
+      android:authorities="${applicationId}.shizuku"
+      android:multiprocess="false"
+      android:enabled="true"
+      android:exported="true"
+      android:permission="android.permission.INTERACT_ACROSS_USERS_FULL" />
     <activity android:name=".MainActivity" android:exported="true">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
