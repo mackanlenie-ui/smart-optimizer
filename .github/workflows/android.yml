@@ -24,7 +24,7 @@ jobs:
         run: gradle --no-daemon :app:assembleDebug
       - name: Prepare artifact and signer
         run: |
-          cp app/build/outputs/apk/debug/app-debug.apk S23-Ultra-Toolbox-9.1-unsigned.apk
+          cp app/build/outputs/apk/debug/app-debug.apk S23-Ultra-Toolbox-9.2-unsigned.apk
           BT=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)
           mkdir -p apksigner-tool/lib
           cp "$BT/apksigner" apksigner-tool/
@@ -32,12 +32,12 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: S23-Ultra-Toolbox-9.1-unsigned
-          path: S23-Ultra-Toolbox-9.1-unsigned.apk
+          name: S23-Ultra-Toolbox-9.2-unsigned
+          path: S23-Ultra-Toolbox-9.2-unsigned.apk
           retention-days: 30
       - name: Upload apksigner tool
         uses: actions/upload-artifact@v4
         with:
-          name: apksigner-tool-9.1
+          name: apksigner-tool-9.2
           path: apksigner-tool
           retention-days: 30
