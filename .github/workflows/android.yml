@@ -25,10 +25,10 @@ jobs:
       - name: Build APK
         run: gradle --no-daemon :app:assembleDebug
       - name: Rename APK
-        run: cp app/build/outputs/apk/debug/app-debug.apk Smart-Optimizer-8.0-S23-Ultra.apk
+        run: cp app/build/outputs/apk/debug/app-debug.apk Smart-Optimizer-8.1-S23-Ultra.apk
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Smart-Optimizer-8.0-S23-Ultra
-          path: Smart-Optimizer-8.0-S23-Ultra.apk
+          name: Smart-Optimizer-8.1-S23-Ultra
+          path: Smart-Optimizer-8.1-S23-Ultra.apk
           retention-days: 30
