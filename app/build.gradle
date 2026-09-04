@@ -2,7 +2,7 @@ plugins { id 'com.android.application' }
 android {
   namespace 'se.smartoptimizer.toolbox'
   compileSdk 35
-  defaultConfig { applicationId 'se.smartoptimizer.toolbox'; minSdk 26; targetSdk 35; versionCode 890; versionName '8.9' }
+  defaultConfig { applicationId 'se.smartoptimizer.toolbox'; minSdk 26; targetSdk 35; versionCode 900; versionName '9.0' }
   compileOptions { sourceCompatibility JavaVersion.VERSION_11; targetCompatibility JavaVersion.VERSION_11 }
 }
 dependencies { implementation 'dev.rikka.shizuku:api:13.1.5'; implementation 'dev.rikka.shizuku:provider:13.1.5' }
