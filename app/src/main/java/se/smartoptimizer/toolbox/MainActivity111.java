@@ -15,7 +15,6 @@ public class MainActivity111 extends MainActivity110 {
 
   @Override void base(String a,String b,boolean back){
     super.base(a,b,back);
-    // Extra safe-area for One UI / Android 16 edge-to-edge status bar.
     root.setPadding(18,Math.max(100,26+bar()),18,50);
   }
 
@@ -42,7 +41,7 @@ public class MainActivity111 extends MainActivity110 {
 
   void measurePlace(String key,String label){
     base("📍 MÄTER PLATS "+label,"10 mätningar • håll telefonen still",true);
-    final TextView status=note("Startar mätningen…");
+    final TextView status=text("Startar mätningen…",15,false);status.setTextColor(android.graphics.Color.LTGRAY);status.setPadding(8,7,8,7);root.addView(status);
     final ArrayList<Integer> r=new ArrayList<>(),q=new ArrayList<>(),sn=new ArrayList<>();
     final int[] n={0};
     Runnable task=new Runnable(){public void run(){
