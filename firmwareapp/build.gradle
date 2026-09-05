@@ -1,0 +1,34 @@
+plugins { id 'com.android.application' }
+
+import groovy.json.JsonSlurper
+
+File findRustlsPlatformVerifierClasses() {
+    def dependencyText = providers.exec {
+        workingDir = file('rust')
+        commandLine('cargo', 'metadata', '--format-version', '1')
+    }.standardOutput.asText.get()
+    def dependencyJson = new JsonSlurper().parseText(dependencyText)
+    def manifestFile = file(dependencyJson.packages.find { it.name == 'rustls-platform-verifier-android' }.manifest_path)
+    return new File(manifestFile.parentFile, 'classes.jar')
+}
+
+android {
+    namespace 'se.samsungfirmware.downloader'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'se.samsungfirmware.downloader'
+        minSdk 26
+        targetSdk 35
+        versionCode 1
+        versionName '1.0'
+    }
+
+    buildTypes {
+        release { minifyEnabled false }
+    }
+}
+
+dependencies {
+    implementation files(findRustlsPlatformVerifierClasses())
+}

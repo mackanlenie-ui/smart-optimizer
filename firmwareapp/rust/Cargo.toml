@@ -1,0 +1,12 @@
+[package]
+name = "firmware-native"
+version = "1.0.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+jni = "0.21"
+rustls-platform-verifier = "0.7"
+samloader-fus = { git = "https://github.com/topjohnwu/samloader-rs.git", package = "samloader-fus", tag = "v2.0.0" }
