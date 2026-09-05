@@ -90,7 +90,20 @@ public class MainActivity106 extends MainActivity105 {
   int bestDbm(TelephonyManager tm){
     try{if(checkSelfPermission(Manifest.permission.READ_PHONE_STATE)!=PackageManager.PERMISSION_GRANTED)return Integer.MIN_VALUE;SignalStrength s=tm.getSignalStrength();if(s==null)return Integer.MIN_VALUE;int best=-200;for(CellSignalStrength c:s.getCellSignalStrengths())best=Math.max(best,c.getDbm());return best<=-200?Integer.MIN_VALUE:best;}catch(Throwable e){return Integer.MIN_VALUE;}
   }
-  String netName(int t){String n=TelephonyManager.getNetworkTypeName(t);return n==null||n.isEmpty()?"Okänd":n;}
+  String netName(int t){
+    switch(t){
+      case TelephonyManager.NETWORK_TYPE_NR:return "5G NR";
+      case TelephonyManager.NETWORK_TYPE_LTE:return "4G LTE";
+      case TelephonyManager.NETWORK_TYPE_HSPAP:return "3G HSPA+";
+      case TelephonyManager.NETWORK_TYPE_HSPA:return "3G HSPA";
+      case TelephonyManager.NETWORK_TYPE_UMTS:return "3G UMTS";
+      case TelephonyManager.NETWORK_TYPE_EDGE:return "2G EDGE";
+      case TelephonyManager.NETWORK_TYPE_GPRS:return "2G GPRS";
+      case TelephonyManager.NETWORK_TYPE_IWLAN:return "IWLAN / Wi-Fi Calling";
+      case TelephonyManager.NETWORK_TYPE_UNKNOWN:return "Okänd";
+      default:return "Nättyp "+t;
+    }
+  }
   String snr(int v){return v==Integer.MAX_VALUE||v==99?"okänd":String.format(Locale.ROOT,"%.1f dB",v/10f);}
   String mhz(int hz){return hz>0?(hz/1000000)+" MHz":"okänd";}
   String safe(String s){return s==null?"?":s;}
