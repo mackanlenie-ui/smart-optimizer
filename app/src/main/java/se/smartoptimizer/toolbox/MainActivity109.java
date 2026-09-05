@@ -95,14 +95,14 @@ public class MainActivity109 extends MainActivity108 {
     base("⚖️ 5G / 4G JÄMFÖRELSE","Spara två mätningar på exakt samma plats",true);
     SharedPreferences p=getSharedPreferences("net109",MODE_PRIVATE); String a=p.getString("cmp_a","");String b=p.getString("cmp_b","");
     note("A: "+(a.isEmpty()?"inte sparad":a)+"\n\nB: "+(b.isEmpty()?"inte sparad":b));
-    btn("1️⃣ Spara aktuell som 5G preferred (A)",()->{p.edit().putString("cmp_a",snapshot()).apply();comparePage();});
-    btn("2️⃣ Spara aktuell som 4G preferred (B)",()->{p.edit().putString("cmp_b",snapshot()).apply();comparePage();});
+    btn("1️⃣ Spara aktuell som 5G preferred (A)",()->{p.edit().putString("cmp_a",radioSnapshot()).apply();comparePage();});
+    btn("2️⃣ Spara aktuell som 4G preferred (B)",()->{p.edit().putString("cmp_b",radioSnapshot()).apply();comparePage();});
     if(!a.isEmpty()&&!b.isEmpty())note(compareSnapshots(a,b));
     btn("📱 Öppna mobilnätsinställningar",()->openMobileSettings());
     btn("🗑️ Nollställ jämförelse",()->{p.edit().remove("cmp_a").remove("cmp_b").apply();comparePage();});
   }
 
-  String snapshot(){
+  String radioSnapshot(){
     try{TelephonyManager tm=(TelephonyManager)getSystemService(TELEPHONY_SERVICE);SignalStrength s=tm.getSignalStrength();if(s!=null)for(CellSignalStrength c:s.getCellSignalStrengths())if(c instanceof CellSignalStrengthLte){CellSignalStrengthLte l=(CellSignalStrengthLte)c;return "RSRP="+l.getRsrp()+",RSRQ="+l.getRsrq()+",SNR10="+l.getRssnr()+",TIME="+tf.format(new Date());}}catch(Throwable ignored){}return "kunde inte läsa";
   }
   int val(String s,String k){try{int i=s.indexOf(k+"=");if(i<0)return 9999;i+=k.length()+1;int e=s.indexOf(',',i);if(e<0)e=s.length();return Integer.parseInt(s.substring(i,e));}catch(Throwable e){return 9999;}}
