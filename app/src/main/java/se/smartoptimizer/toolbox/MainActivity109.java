@@ -71,7 +71,7 @@ public class MainActivity109 extends MainActivity108 {
     base("⏱️ STABILITETSTEST","60 sekunder • 30 mätningar",true);
     note("Stå still på samma plats. Testet mäter variation i RSRP, RSRQ och SNR varannan sekund.");
     final ArrayList<Integer> rsrp=new ArrayList<>(),rsrq=new ArrayList<>(),snr10=new ArrayList<>();
-    final TextView status=note("Startar…");
+    final TextView status=text("Startar…",16,true); status.setPadding(8,12,8,12); root.addView(status);
     final int[] n={0};
     Runnable r=new Runnable(){public void run(){
       try{TelephonyManager tm=(TelephonyManager)getSystemService(TELEPHONY_SERVICE);SignalStrength s=tm.getSignalStrength();if(s!=null)for(CellSignalStrength c:s.getCellSignalStrengths())if(c instanceof CellSignalStrengthLte){CellSignalStrengthLte l=(CellSignalStrengthLte)c;rsrp.add(l.getRsrp());rsrq.add(l.getRsrq());if(l.getRssnr()!=Integer.MAX_VALUE&&l.getRssnr()!=99)snr10.add(l.getRssnr());break;}}catch(Throwable ignored){}
