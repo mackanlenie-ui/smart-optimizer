@@ -48,6 +48,7 @@ public class MainActivity114 extends MainActivity112 {
     dashboard();
     if(p.getBoolean("update",false))card("🆕 Efter Samsung-uppdatering","Kontrollera om paket eller inställningar ändrats.",()->afterUpdate());
     card("📡 Nätverk & signal","Live signal, LTE/5G, cell-ID, band och Fello/Telia-råd.",()->network106());
+    card("⚡ Network Optimizer 1.0","Analysera signalen och jämför 5G mot 4G utan placebo-tweaks.",()->networkOptimizer());
     card("🧠 Smart Advisor 4.0","Jämför nuläget med din lokala historik.",()->advisor());
     card("🛡️ Smart Debloat 8.0","S23 Ultra Safe-profil • Bixby • risk • Recovery.",()->debloat());
     card("📦 App Manager 2.0","Sök, filtrera och inspektera installerade appar.",()->apps());
@@ -61,6 +62,21 @@ public class MainActivity114 extends MainActivity112 {
     card("📸 Camera Guide 5.1","S23 Ultra-råd för foto och video.",()->camera());
     card("🕘 Historik","Vad har Toolbox ändrat?",()->history());
     card("🎮 Grafik & Vulkan","HWUI, Adreno/Vulkan, ANGLE och säkert A/B-test.",()->graphicsPage());
+  }
+
+  void networkOptimizer(){
+    base("⚡ NETWORK OPTIMIZER 1.0","Fello/Telia • mät först • ändra bara det som hjälper",true);
+    sec("Analysera & optimera");
+    note("Toolbox kan inte öka antennens sändeffekt. I stället mäter vi radiokvalitet och väljer det nätläge som faktiskt är stabilast på din plats.");
+    btn("📡 Visa live signal & smart rekommendation",()->network106());
+    btn("⏱️ Kör 60 sek stabilitetstest",()->startStabilityTest());
+    btn("⚖️ Jämför 5G preferred mot 4G preferred",()->comparePage());
+    sec("S23 Ultra + Fello/Telia");
+    note("Rekommenderad grundprofil:\n• 5G prioriteras som standard\n• 2G av om du inte behöver det\n• Operatörsval automatiskt\n• Telia Internet/APN lämnas normalt orörd\n• Carrier aggregation lämnas aktiv\n\nByt till 4G preferred endast när våra mätningar visar tydligt bättre stabilitet eller kvalitet.");
+    btn("📱 Öppna mobilnätsinställningar",()->openMobileSettings());
+    btn("🔧 Shizuku Tools",()->shPage());
+    sec("Undvik falska tweaks");
+    note("Network Optimizer ändrar inte modemets effekt, IMS/VoLTE-parametrar eller dolda radio-properties. Sådana 'boost'-tweaks kan försämra samtal, 5G och batteritid.");
   }
 
   @Override void debloat(){
