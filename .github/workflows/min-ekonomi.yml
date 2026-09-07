@@ -9,6 +9,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Fix biometric import
+        run: sed -i '/import android.app.\*/a import android.hardware.biometrics.BiometricPrompt;' min-ekonomi/app/src/main/java/se/minekonomi/app/MainActivity.java
       - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
