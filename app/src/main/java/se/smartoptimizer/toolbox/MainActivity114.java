@@ -14,6 +14,7 @@ public class MainActivity114 extends MainActivity112 {
       {"Bixby Voice","com.samsung.android.bixby.agent","Säker","Samsung","Bixby-röst. Ingår i din profil eftersom du inte använder Bixby."},
       {"Bixby Wakeup","com.samsung.android.bixby.wakeup","Säker","Samsung","Bixby röstväckning. Ingår i din profil eftersom du inte använder Bixby."},
       {"Bixby Vision Framework","com.samsung.android.bixbyvision.framework","Säker","Samsung","Bixby Vision-ramverk. Ingår i din profil eftersom du inte använder Bixby."},
+      {"Samsung Pass","com.samsung.android.samsungpass","Valfritt","Samsung","Samsung Pass/autofyll. Avaktivera om du använder Google Password Manager eller annan lösenordshanterare. Återställ om Samsung-inloggning eller autofyll påverkas."},
       {"AR Emoji","com.samsung.android.aremoji","Valfritt","Samsung","AR Emoji. Behåll om du använder AR-avatarer i kameran."},
       {"AR Avatar preload","com.samsung.android.app.camera.sticker.facearavatar.preload","Valfritt","Samsung","Förinstallerade AR-avatarresurser."},
       {"Sticker Center","com.samsung.android.stickercenter","Valfritt","Samsung","Samsung-klistermärken och kameraeffekter."},
@@ -64,7 +65,7 @@ public class MainActivity114 extends MainActivity112 {
   @Override void debloat(){
     base("🛡️ SMART DEBLOAT 8.0","S23 Ultra Safe • Samsung • Google • Meta • Recovery",true);
     note(shStatus());
-    note("Safe-profil 10.14: kärnfunktioner som DeX, kamera, S Pen, telefoni/IMS, Wi‑Fi, Bluetooth, Knox, Samsung Pass, positionering och systemuppdatering finns inte i säker batch.");
+    note("Safe-profil: kärnfunktioner som DeX, kamera, S Pen, telefoni/IMS, Wi‑Fi, Bluetooth, Knox, positionering och systemuppdatering finns inte i säker batch. Samsung Pass finns som Valfritt och körs aldrig automatiskt.");
     btn("✨ Kör S23 Ultra Safe batch",()->recommended());
     String last="";
     for(String[]a:PK)if(installed(a[1])){
