@@ -10,14 +10,14 @@ public class MainActivity108 extends MainActivity107 {
   @Override void show(){super.show();try{((TextView)root.getChildAt(0)).setText("S23 ULTRA TOOLBOX 10.8");}catch(Throwable ignored){}}
 
   @Override void network106(){
-    base("📶 NÄTVERK & SIGNAL","S23 Ultra • Vimla/Telenor • live radioinfo",true);
+    base("📶 NÄTVERK & SIGNAL","S23 Ultra • Fello/Telia • live radioinfo",true);
     TelephonyManager tm=(TelephonyManager)getSystemService(TELEPHONY_SERVICE);
     boolean phone=checkSelfPermission(Manifest.permission.READ_PHONE_STATE)==PackageManager.PERMISSION_GRANTED;
     boolean loc=checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED;
     if(!phone||!loc){note("För full signal- och cellinformation behöver Toolbox Telefon + Plats. Plats används bara lokalt för Androids cell-API och skickas ingenstans.");btn("Ge nätverksbehörighet",()->requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE,Manifest.permission.ACCESS_FINE_LOCATION},NET_PERM));}
     sec("Aktuell anslutning");String op="Okänd",code="";try{op=tm.getNetworkOperatorName();code=tm.getNetworkOperator();}catch(Throwable ignored){}String plmn=code!=null&&code.length()>=5?code.substring(0,3)+"-"+code.substring(3):"Okänd";int nt=0;try{if(phone)nt=tm.getDataNetworkType();}catch(Throwable ignored){}note("Operatör som Android visar: "+(op==null||op.isEmpty()?"Okänd":op)+"\nAbonnemangs-PLMN: "+plmn+"\nDatanät: "+netName(nt));
     signalBlock(tm);cellBlock(tm,loc);sec("Smart rekommendation");note(smartRadioAdvice(tm));
-    note("ℹ️ Vimla använder Telenors nät. Abonnemanget kan visas som 240-08 medan radiocellen rapporterar 240-07 (Tele2) i det gemensamma Tele2/Telenor-radionätet. APN ändrar inte radiosignalstyrkan.");
+    note("ℹ️ Fello använder Telias mobilnät. Abonnemanget kan därför visas med Telia som nätoperatör i Androids radioinformation. APN påverkar datatjänsten men ändrar inte själva radiosignalstyrkan.");
     sec("Snabbval");btn("🔄 Uppdatera mätning",()->network106());btn("📱 Öppna mobilnätsinställningar",()->openMobileSettings());btn("🧪 Jämför 5G preferred / 4G preferred",()->networkTest106());btn("🔧 Shizuku Tools",()->shPage());
   }
 
