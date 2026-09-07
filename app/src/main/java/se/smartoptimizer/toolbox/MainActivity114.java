@@ -44,9 +44,10 @@ public class MainActivity114 extends MainActivity112 {
   }
 
   @Override void show(){
-    base("S23 ULTRA TOOLBOX 10.14","Dashboard 4.0 • Smart Debloat 8.0 • Recovery 2.0",false);
+    base("S23 ULTRA TOOLBOX 10.15","Dashboard 4.0 • Smart Debloat 8.0 • Recovery 2.0",false);
     dashboard();
     if(p.getBoolean("update",false))card("🆕 Efter Samsung-uppdatering","Kontrollera om paket eller inställningar ändrats.",()->afterUpdate());
+    card("📡 Nätverk & signal","Live signal, LTE/5G, cell-ID, band och Fello/Telia-råd.",()->network106());
     card("🧠 Smart Advisor 4.0","Jämför nuläget med din lokala historik.",()->advisor());
     card("🛡️ Smart Debloat 8.0","S23 Ultra Safe-profil • Bixby • risk • Recovery.",()->debloat());
     card("📦 App Manager 2.0","Sök, filtrera och inspektera installerade appar.",()->apps());
