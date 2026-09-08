@@ -1,0 +1,68 @@
+package se.smartoptimizer.toolbox;
+
+import android.os.Bundle;
+
+public class MainActivity1105 extends MainActivity1104 {
+  static final String VK_KEY="angle_gl_driver_all_angle";
+  static final String VK_SNAP="vulkan_angle_prev_115";
+
+  @Override public void onCreate(Bundle b){super.onCreate(b);}
+
+  @Override void show(){
+    base("S23 ULTRA TOOLBOX 11.5","11.4 stable + återställt Vulkan/ANGLE-verktyg",false);
+    dashboard();
+    card("📡 Nätverk & signal","Vimla, LTE/5G, signal, CA och IMS.",()->networkHub122());
+    card("🔋 Batteri & optimering","Smart batteristatus, appanalys och säkra tester.",()->batteryHub122());
+    card("🛡️ Appar & debloat","Sök/filter, tydlig paketstatus och säker selektiv debloat.",()->appsHub122());
+    card("🌡️ Prestanda & temperatur","Thermal Watch, laddtest, Smart Advisor och Vulkan/ANGLE.",()->performanceHub122());
+    card("📱 Telefon & jobb","GPS/Jobbläge, DeX och kamera.",()->phoneHub122());
+    card("🧯 Recovery & diagnostik","Återställning, backup, historik och Shizuku.",()->recoveryHub122());
+    card("🧰 Fler verktyg","Rapporter, historik, diagnostik och äldre verktyg.",()->legacyHome122());
+  }
+
+  @Override void performanceHub122(){
+    base("🌡️ PRESTANDA & TEMPERATUR","Mät före du ändrar • Vulkan/ANGLE återställt",true);
+    btn("🌡️ Thermal Watch 4.0",()->thermalWatch());
+    btn("⚡ Charging Test Pro",()->chargingTest());
+    btn("🧠 Smart Advisor 4.0",()->advisor());
+    btn("🔥 Vulkan / ANGLE",()->vulkanHub115());
+  }
+
+  void vulkanHub115(){
+    if(!shOk()){requestSh();return;}
+    String v=runShellText("settings get global "+VK_KEY).trim();
+    boolean on="1".equals(v);
+    base("🔥 VULKAN / ANGLE","Grafikläge • status • återställningsbart",true);
+    note((on?"🟢 Vulkan/ANGLE-läge är AKTIVT":"⚪ Vulkan/ANGLE-läge är inte tvingat")+"\nAktuellt systemvärde: "+(v.isEmpty()?"ej satt":v));
+    note("Detta styr Androids ANGLE-grafikväg, som använder Vulkan som backend där systemet stöder det. Det ändrar inte GPU-hårdvaran och alla appar behöver inte använda ANGLE.");
+    btn("🔥 Aktivera Vulkan / ANGLE",()->enableVulkan115());
+    btn("↩️ Återställ systemstandard",()->restoreVulkan115());
+    btn("🔄 Läs status igen",()->vulkanHub115());
+  }
+
+  void enableVulkan115(){
+    if(!shOk()){requestSh();return;}
+    new Thread(()->{
+      if(!p.contains(VK_SNAP)){
+        String old=runShellText("settings get global "+VK_KEY).trim();
+        p.edit().putString(VK_SNAP,old).apply();
+      }
+      int c=runCode("settings put global "+VK_KEY+" 1");
+      String now=runShellText("settings get global "+VK_KEY).trim();
+      runOnUiThread(()->dialog118("Vulkan / ANGLE",c==0&&"1".equals(now)?"✅ Vulkan/ANGLE-läget är aktiverat.\n\nToolbox har sparat tidigare värde så att det kan återställas.":"⚠️ Android/Samsung accepterade inte ändringen. Ingen ytterligare tweak gjordes."));
+    }).start();
+  }
+
+  void restoreVulkan115(){
+    if(!shOk()){requestSh();return;}
+    new Thread(()->{
+      String old=p.getString(VK_SNAP,null);
+      int c;
+      if(old==null||old.isEmpty()||"null".equalsIgnoreCase(old)) c=runCode("settings delete global "+VK_KEY);
+      else c=runCode("settings put global "+VK_KEY+" "+old);
+      if(c==0)p.edit().remove(VK_SNAP).apply();
+      String now=runShellText("settings get global "+VK_KEY).trim();
+      runOnUiThread(()->dialog118("Vulkan / ANGLE",c==0?"✅ Systemstandard återställd.\nAktuellt värde: "+now:"⚠️ Återställningen misslyckades. Ingen annan inställning ändrades."));
+    }).start();
+  }
+}
