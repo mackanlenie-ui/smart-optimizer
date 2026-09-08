@@ -29,10 +29,10 @@ jobs:
       - name: Build Samsung Boot Tool
         run: gradle --no-daemon :boottool:assembleDebug
       - name: Prepare APK
-        run: cp boottool/build/outputs/apk/debug/boottool-debug.apk Samsung-Boot-Tool-v1.0.apk
+        run: cp boottool/build/outputs/apk/debug/boottool-debug.apk Samsung-Boot-Tool-v1.2.apk
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Samsung-Boot-Tool-v1.0
-          path: Samsung-Boot-Tool-v1.0.apk
+          name: Samsung-Boot-Tool-v1.2
+          path: Samsung-Boot-Tool-v1.2.apk
           retention-days: 30
