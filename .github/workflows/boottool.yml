@@ -26,13 +26,18 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
+      - name: Add local ADB engine (LADB GPLv3)
+        run: |
+          mkdir -p boottool/src/main/jniLibs/arm64-v8a boottool/src/main/assets
+          curl -fL https://raw.githubusercontent.com/tytydraco/LADB/main/app/src/main/jniLibs/arm64-v8a/libadb.so -o boottool/src/main/jniLibs/arm64-v8a/libadb.so
+          curl -fL https://raw.githubusercontent.com/tytydraco/LADB/main/app/src/main/jniLibs/LICENSE -o boottool/src/main/assets/LADB-LICENSE.txt
       - name: Build Samsung Boot Tool
         run: gradle --no-daemon :boottool:assembleDebug
       - name: Prepare APK
-        run: cp boottool/build/outputs/apk/debug/boottool-debug.apk Samsung-Boot-Tool-v1.2.apk
+        run: cp boottool/build/outputs/apk/debug/boottool-debug.apk Samsung-Boot-Tool-v1.3.apk
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Samsung-Boot-Tool-v1.2
-          path: Samsung-Boot-Tool-v1.2.apk
+          name: Samsung-Boot-Tool-v1.3
+          path: Samsung-Boot-Tool-v1.3.apk
           retention-days: 30
