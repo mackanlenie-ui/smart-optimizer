@@ -39,14 +39,19 @@ public class MainActivity127 extends MainActivity126 {
   void selective127(){
     if(!shOk()){requestSh();return;}
     new Thread(()->{
-      String b=runShellText("am get-standby-bucket");
-      StringBuilder s=new StringBuilder("🎯 SELEKTIV APPOPTIMERING 1.0\n\n");
-      s.append("Utifrån din senaste analys är telefonen redan väloptimerad.\n\n🟡 GRANSKA VID BEHOV\n");
-      addCandidate127(s,b,"com.facebook.katana","Facebook");
-      addCandidate127(s,b,"com.zhiliaoapp.musically","TikTok");
-      addCandidate127(s,b,"com.google.android.apps.photos","Google Foto");
-      s.append("\n🛡️ SKYDDAS\nWhatsApp, Google Messages, Nordea, Swish, Gmail/e-post, telefon/IMS, kalender, alarm/klocka och autentiseringsappar ändras inte automatiskt.\n\n🌙 Appar som redan ligger Frequent/Rare/Restricted/Never lämnas orörda.\n\nℹ️ One UI/Android kan själv flytta appar mellan buckets efter användning. Hårda ändringar kan försena notiser eller bakgrundsjobb.\n\n✅ Ingen ändring gjord.");
-      final String x=s.toString();runOnUiThread(()->dialog118("Selektiv appoptimering",x));
+      try{
+        String b=runShellText("am get-standby-bucket");
+        StringBuilder s=new StringBuilder("🎯 SELEKTIV APPOPTIMERING 1.0\n\n");
+        s.append("Utifrån din senaste analys är telefonen redan väloptimerad.\n\n🟡 GRANSKA VID BEHOV\n");
+        addCandidate127(s,b,"com.facebook.katana","Facebook");
+        addCandidate127(s,b,"com.zhiliaoapp.musically","TikTok");
+        addCandidate127(s,b,"com.google.android.apps.photos","Google Foto");
+        s.append("\n🛡️ SKYDDAS\nWhatsApp, Google Messages, Nordea, Swish, Gmail/e-post, telefon/IMS, kalender, alarm/klocka och autentiseringsappar ändras inte automatiskt.\n\n🌙 Appar som redan ligger Frequent/Rare/Restricted/Never lämnas orörda.\n\nℹ️ One UI/Android kan själv flytta appar mellan buckets efter användning. Hårda ändringar kan försena notiser eller bakgrundsjobb.\n\n✅ Ingen ändring gjord.");
+        final String x=s.toString();runOnUiThread(()->dialog118("Selektiv appoptimering",x));
+      }catch(Exception e){
+        final String err="Kunde inte läsa standby-status: "+e.getMessage();
+        runOnUiThread(()->dialog118("Selektiv appoptimering",err));
+      }
     }).start();
   }
 
