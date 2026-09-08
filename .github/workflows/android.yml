@@ -16,7 +16,7 @@ jobs:
           s=open(p,encoding='utf-8').read()
           s=s.replace('void dashboard(){LinearLayout a=', 'int disabledKnown(){int n=0;for(String[]x:PK)if(installed(x[1])&&!enabled(x[1]))n++;return n;}\n  void dashboard(){LinearLayout a=')
           s=s.replace('root.addView(b);note("Health "+score()+"/100', 'root.addView(b);note("🧹 Debloat-status: "+disabledKnown()+" kända paket avaktiverade • "+safe()+" säkra förslag kvar");note("Health "+score()+"/100')
-          s=s.replace('S23 ULTRA TOOLBOX 8.8','S23 ULTRA TOOLBOX 10.31').replace('Smart Debloat 7.0','Smart Debloat 8.1').replace('SMART DEBLOAT 7.0','SMART DEBLOAT 8.1')
+          s=s.replace('S23 ULTRA TOOLBOX 8.8','S23 ULTRA TOOLBOX 11.0').replace('Smart Debloat 7.0','Smart Debloat 8.1').replace('SMART DEBLOAT 7.0','SMART DEBLOAT 8.1')
           open(p,'w',encoding='utf-8').write(s)
           PY
       - name: Set up Java 17
@@ -33,10 +33,10 @@ jobs:
       - name: Build APK
         run: gradle --no-daemon :app:assembleDebug
       - name: Prepare artifact
-        run: cp app/build/outputs/apk/debug/app-debug.apk S23-Ultra-Toolbox-10.31.apk
+        run: cp app/build/outputs/apk/debug/app-debug.apk S23-Ultra-Toolbox-11.0.apk
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: S23-Ultra-Toolbox-10.31
-          path: S23-Ultra-Toolbox-10.31.apk
+          name: S23-Ultra-Toolbox-11.0
+          path: S23-Ultra-Toolbox-11.0.apk
           retention-days: 30
