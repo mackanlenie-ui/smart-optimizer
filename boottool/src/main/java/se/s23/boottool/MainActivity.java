@@ -50,7 +50,7 @@ public class MainActivity extends Activity {
         title.setGravity(Gravity.CENTER);
         root.addView(title, full(dp(54)));
 
-        TextView subtitle = text("Galaxy S23 Ultra • Shizuku", 15, false);
+        TextView subtitle = text("Galaxy S23 Ultra • Shizuku • v1.2", 15, false);
         subtitle.setTextColor(Color.rgb(160, 170, 185));
         subtitle.setGravity(Gravity.CENTER);
         root.addView(subtitle, full(dp(38)));
@@ -67,7 +67,7 @@ public class MainActivity extends Activity {
         root.addView(permission, buttonParams());
 
         Button download = button("⬇  DOWNLOAD MODE");
-        download.setOnClickListener(v -> confirm("Download Mode", "Mobilen startas om till Samsungs Download Mode.", "reboot download"));
+        download.setOnClickListener(v -> confirm("Download Mode", "v1.2 använder powerctl-metoden via Shizuku i stället för 'reboot download'. Mobilen startas om direkt.", "setprop sys.powerctl reboot,download"));
         root.addView(download, buttonParams());
 
         Button recovery = button("🛠  RECOVERY MODE");
@@ -78,7 +78,7 @@ public class MainActivity extends Activity {
         reboot.setOnClickListener(v -> confirm("Starta om", "Vill du starta om mobilen nu?", "reboot"));
         root.addView(reboot, buttonParams());
 
-        TextView info = text("Kräver att Shizuku är startat. Appen ändrar inte firmware och låser inte upp bootloadern.", 13, false);
+        TextView info = text("Download Mode använder nu Termux-lik powerctl-metod. Kräver att Shizuku är startat och godkänt.", 13, false);
         info.setTextColor(Color.rgb(145, 152, 164));
         info.setGravity(Gravity.CENTER);
         LinearLayout.LayoutParams ip = full(-2);
@@ -134,13 +134,11 @@ public class MainActivity extends Activity {
                 return;
             }
 
-            // Shizuku 13 keeps newProcess for migration but marks it private/deprecated.
-            // Reflection lets this tiny utility execute the same ADB-shell reboot command.
             Method m = Shizuku.class.getDeclaredMethod("newProcess", String[].class, String[].class, String.class);
             m.setAccessible(true);
             Object process = m.invoke(null, new Object[]{new String[]{"sh", "-c", command}, null, null});
             if (process == null) throw new IllegalStateException("Kunde inte starta shell-process");
-            toast("Kommandot skickades: " + command);
+            toast("Kommandot skickades.");
         } catch (Throwable e) {
             status.setText("Kommandot misslyckades");
             toast("Samsung/firmware blockerade kommandot eller Shizuku saknar åtkomst.");
