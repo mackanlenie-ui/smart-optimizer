@@ -2,6 +2,7 @@ package se.smartoptimizer.toolbox;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.widget.TextView;
 
 public class MainActivity116 extends MainActivity114 {
   private static final String K_WIFI_SCAN="wifi_scan_always_enabled";
@@ -12,6 +13,7 @@ public class MainActivity116 extends MainActivity114 {
 
   @Override void show(){
     super.show();
+    try{((TextView)root.getChildAt(0)).setText("S23 ULTRA TOOLBOX 10.16");}catch(Throwable ignored){}
     card("🔋 Batterioptimering 1.0","Säkra Kryptonian-idéer • exakt snapshot • full återställning.",()->batteryOptimizerPage());
   }
 
