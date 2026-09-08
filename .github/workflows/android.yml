@@ -9,14 +9,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Add 10.15 debloat status summary
+      - name: Add debloat status summary
         run: |
           python3 - <<'PY'
           p='app/src/main/java/se/smartoptimizer/toolbox/MainActivity.java'
           s=open(p,encoding='utf-8').read()
           s=s.replace('void dashboard(){LinearLayout a=', 'int disabledKnown(){int n=0;for(String[]x:PK)if(installed(x[1])&&!enabled(x[1]))n++;return n;}\n  void dashboard(){LinearLayout a=')
           s=s.replace('root.addView(b);note("Health "+score()+"/100', 'root.addView(b);note("🧹 Debloat-status: "+disabledKnown()+" kända paket avaktiverade • "+safe()+" säkra förslag kvar");note("Health "+score()+"/100')
-          s=s.replace('S23 ULTRA TOOLBOX 8.8','S23 ULTRA TOOLBOX 10.15').replace('Smart Debloat 7.0','Smart Debloat 8.1').replace('SMART DEBLOAT 7.0','SMART DEBLOAT 8.1')
+          s=s.replace('S23 ULTRA TOOLBOX 8.8','S23 ULTRA TOOLBOX 10.16').replace('Smart Debloat 7.0','Smart Debloat 8.1').replace('SMART DEBLOAT 7.0','SMART DEBLOAT 8.1')
           open(p,'w',encoding='utf-8').write(s)
           PY
       - name: Set up Java 17
@@ -34,7 +34,7 @@ jobs:
         run: gradle --no-daemon :app:assembleDebug
       - name: Prepare artifact and signer
         run: |
-          cp app/build/outputs/apk/debug/app-debug.apk S23-Ultra-Toolbox-10.15.apk
+          cp app/build/outputs/apk/debug/app-debug.apk S23-Ultra-Toolbox-10.16.apk
           BT=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)
           mkdir -p apksigner-tool/lib
           cp "$BT/apksigner" apksigner-tool/
@@ -42,12 +42,12 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: S23-Ultra-Toolbox-10.15
-          path: S23-Ultra-Toolbox-10.15.apk
+          name: S23-Ultra-Toolbox-10.16
+          path: S23-Ultra-Toolbox-10.16.apk
           retention-days: 30
       - name: Upload apksigner tool
         uses: actions/upload-artifact@v4
         with:
-          name: apksigner-tool-10.15
+          name: apksigner-tool-10.16
           path: apksigner-tool
           retention-days: 30
