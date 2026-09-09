@@ -31,7 +31,20 @@ jobs:
         with:
           gradle-version: '8.9'
       - name: Build APK
-        run: gradle --no-daemon :app:assembleDebug
+        run: |
+          set +e
+          gradle --no-daemon :app:assembleDebug 2>&1 | tee build.log
+          code=${PIPESTATUS[0]}
+          echo "$code" > build.exit
+          exit 0
+      - name: Upload build log
+        uses: actions/upload-artifact@v4
+        with:
+          name: Toolbox-11.6-build-log
+          path: build.log
+          retention-days: 2
+      - name: Verify build result
+        run: test "$(cat build.exit)" = "0"
       - name: Prepare artifact
         run: cp app/build/outputs/apk/debug/app-debug.apk S23-Ultra-Toolbox-11.6.apk
       - name: Upload APK
