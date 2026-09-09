@@ -112,7 +112,10 @@ public class MainActivity1106 extends MainActivity1105 {
   void applyGoogleMode116(ArrayList<String[]> sel){
     new Thread(()->{
       Set<String> saved=new HashSet<>(p.getStringSet(GM_PREF,new HashSet<>()));int ok=0,fail=0;
-      for(String[]x:sel){if(runCode("pm disable-user --user 0 "+x[1])==0){saved.add(x[1]);ok++;}else fail++;}
+      for(String[]x:sel){
+        try{int c=runCode("pm disable-user --user 0 "+x[1]);if(c==0){saved.add(x[1]);ok++;}else fail++;}
+        catch(Exception e){fail++;}
+      }
       p.edit().putStringSet(GM_PREF,new HashSet<>(saved)).apply();log("Google-läge: "+ok+" paket avaktiverade");
       final int a=ok,f=fail;runOnUiThread(()->dialog118("Google-läge","✅ Avaktiverade: "+a+(f>0?"\n⚠️ Misslyckades: "+f:"")+"\n\n🔒 Galaxy Store, Samsung Notes, Kamera och Galleri har inte ändrats."));
     }).start();
@@ -122,7 +125,10 @@ public class MainActivity1106 extends MainActivity1105 {
     Set<String> cur=new HashSet<>(p.getStringSet(GM_PREF,new HashSet<>()));if(cur.isEmpty()){toast("Google-läge har inget sparat att återställa");return;}
     new AlertDialog.Builder(this).setTitle("Återställ Google-läge?").setMessage("Aktiverar endast paket som Google-läget i Toolbox själv har stängt av.").setNegativeButton("Avbryt",null).setPositiveButton("Återställ",(d,w)->new Thread(()->{
       int ok=0,fail=0;Set<String> left=new HashSet<>();
-      for(String pkg:cur){int c=runCode("pm enable --user 0 "+pkg);if(c!=0)c=runCode("pm enable "+pkg);if(c==0)ok++;else{fail++;left.add(pkg);}}
+      for(String pkg:cur){
+        try{int c=runCode("pm enable --user 0 "+pkg);if(c!=0)c=runCode("pm enable "+pkg);if(c==0)ok++;else{fail++;left.add(pkg);}}
+        catch(Exception e){fail++;left.add(pkg);}
+      }
       p.edit().putStringSet(GM_PREF,new HashSet<>(left)).apply();log("Google-läge återställning: "+ok+" paket");
       final int a=ok,f=fail;runOnUiThread(()->dialog118("Google-läge återställt","✅ Återställda: "+a+(f>0?"\n⚠️ Kunde inte återställa: "+f:"")));
     }).start()).show();
