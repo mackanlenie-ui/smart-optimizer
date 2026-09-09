@@ -16,7 +16,7 @@ jobs:
           s=open(p,encoding='utf-8').read()
           s=s.replace('void dashboard(){LinearLayout a=', 'int disabledKnown(){int n=0;for(String[]x:PK)if(installed(x[1])&&!enabled(x[1]))n++;return n;}\n  void dashboard(){LinearLayout a=')
           s=s.replace('root.addView(b);note("Health "+score()+"/100', 'root.addView(b);note("🧹 Debloat-status: "+disabledKnown()+" kända paket avaktiverade • "+safe()+" säkra förslag kvar");note("Health "+score()+"/100')
-          s=s.replace('S23 ULTRA TOOLBOX 8.8','S23 ULTRA TOOLBOX 11.6').replace('Smart Debloat 7.0','Smart Debloat 8.1').replace('SMART DEBLOAT 7.0','SMART DEBLOAT 8.1')
+          s=s.replace('S23 ULTRA TOOLBOX 8.8','S23 ULTRA TOOLBOX 11.7').replace('Smart Debloat 7.0','Smart Debloat 8.1').replace('SMART DEBLOAT 7.0','SMART DEBLOAT 8.1')
           open(p,'w',encoding='utf-8').write(s)
           PY
       - name: Set up Java 17
@@ -31,25 +31,12 @@ jobs:
         with:
           gradle-version: '8.9'
       - name: Build APK
-        run: |
-          set +e
-          gradle --no-daemon :app:assembleDebug 2>&1 | tee build.log
-          code=${PIPESTATUS[0]}
-          echo "$code" > build.exit
-          exit 0
-      - name: Upload build log
-        uses: actions/upload-artifact@v4
-        with:
-          name: Toolbox-11.6-build-log
-          path: build.log
-          retention-days: 2
-      - name: Verify build result
-        run: test "$(cat build.exit)" = "0"
+        run: gradle --no-daemon :app:assembleDebug
       - name: Prepare artifact
-        run: cp app/build/outputs/apk/debug/app-debug.apk S23-Ultra-Toolbox-11.6.apk
+        run: cp app/build/outputs/apk/debug/app-debug.apk S23-Ultra-Toolbox-11.7.apk
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: S23-Ultra-Toolbox-11.6
-          path: S23-Ultra-Toolbox-11.6.apk
+          name: S23-Ultra-Toolbox-11.7
+          path: S23-Ultra-Toolbox-11.7.apk
           retention-days: 30
